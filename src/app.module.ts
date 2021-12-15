@@ -10,8 +10,8 @@ import { MongooseModule } from '@nestjs/mongoose';
     ConfigModule.forRoot({
       isGlobal: true,
     }),
-    MongooseModule.forRoot('mongodb://localhost:27017/demo'),
-    // DatabaseModule.forRoot(),
+    // MongooseModule.forRoot('mongodb://localhost:27017/demo'),
+    DatabaseModule.forRoot(),
   ],
   controllers: [],
   providers: [],

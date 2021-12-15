@@ -1,6 +1,5 @@
 import { Module, DynamicModule } from '@nestjs/common';
 import { MongooseModule, MongooseModuleOptions } from '@nestjs/mongoose';
-import { connectionString } from '../constants/connection';
 
 @Module({
   providers: [],
@@ -14,12 +13,11 @@ export class DatabaseModule {
         MongooseModule.forRootAsync({
           imports: [DatabaseModule],
           useFactory: () => {
-            console.log(connectionString);
             return <MongooseModuleOptions>{
-              uri: 'mongodb://localhost:27017/demo',
-              useNewUrlParser: true,
-              useUnifiedTopology: true,
-              useFindAndModify: false,
+              uri: process.env.DB_CONNECTION_PATH,
+              // useNewUrlParser: true,
+              // useUnifiedTopology: true,
+              // useFindAndModify: false,
             };
           },
         }),
