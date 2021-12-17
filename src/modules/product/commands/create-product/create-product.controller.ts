@@ -1,8 +1,8 @@
 import { Body, Controller, HttpStatus, Post } from '@nestjs/common';
 
 import { ApiOperation, ApiResponse } from '@nestjs/swagger';
-import { CreateProductRequest } from '../dtos/product.request.dto';
-import { ProductResponse } from '../dtos/product.response.dto';
+import { CreateProductRequest } from '../../interfaces-dtos/create-product.request.dto';
+import { IdResponse } from '../../interfaces-dtos/product.response.dto';
 import { CreateProductCommand } from './create-product.command';
 import { CreateProductService } from './create-product.service';
 
@@ -14,7 +14,7 @@ export class CreateProductController {
   @ApiOperation({ summary: 'Create a product' })
   @ApiResponse({
     status: HttpStatus.OK,
-    type: ProductResponse,
+    type: IdResponse,
   })
   @ApiResponse({
     status: HttpStatus.CONFLICT,
@@ -23,7 +23,9 @@ export class CreateProductController {
   @ApiResponse({
     status: HttpStatus.BAD_REQUEST,
   })
-  async create(@Body() req: CreateProductRequest): Promise<any> {
-    return await this.service.execute(new CreateProductCommand(req));
+  async create(@Body() req: CreateProductRequest): Promise<IdResponse> {
+    return new IdResponse(
+      await this.service.execute(new CreateProductCommand(req)),
+    );
   }
 }

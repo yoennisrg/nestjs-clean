@@ -1,4 +1,4 @@
-export interface AttributeProduct {
+export interface AttributesProduct {
   size?: string;
   type?: string;
   color?: string;
@@ -8,7 +8,7 @@ export interface AttributeProduct {
 export interface CreateProduct {
   name: string;
   description: string;
-  attributes: AttributeProduct;
+  attributes: AttributesProduct;
   price: number;
   stock?: boolean;
 }

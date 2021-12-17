@@ -1,4 +1,4 @@
-import { AttributeProduct } from '../interface/product.interface';
+import { AttributesProduct } from '../../interfaces-dtos/create-product.interface';
 
 export class CreateProductCommand {
   constructor(props: CreateProductCommand) {
@@ -13,7 +13,7 @@ export class CreateProductCommand {
 
   readonly description: string;
 
-  readonly attributes: AttributeProduct;
+  readonly attributes: AttributesProduct;
 
   readonly price: number;
 

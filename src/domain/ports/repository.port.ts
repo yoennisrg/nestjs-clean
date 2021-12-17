@@ -1,7 +1,7 @@
-export interface RepositoryPort {
+export interface BaseRepositoryPort {
   /** Queries */
   deleteMany(): void;
-  deleteOne(): void;
+  deleteOne(options: any): void;
   find(): void;
   findById(): void;
   findByIdAndDelete(): void;
