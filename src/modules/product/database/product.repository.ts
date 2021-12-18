@@ -1,7 +1,10 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { Model, Types } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
-import { BaseRepository } from '../../../infrastructure/database/base.repository';
+import {
+  BaseRepository,
+  DeleteResult,
+} from '../../../infrastructure/database/base.repository';
 import { Product, ProductDocument } from '../database/product.entity';
 
 @Injectable()
@@ -34,15 +37,11 @@ export class ProductRepository extends BaseRepository<ProductDocument> {
     return _id;
   }
 
-  async exists(name: string): Promise<boolean> {
-    const found = await this.findOne({ name: name });
-    if (found) {
-      return true;
-    }
-    return false;
+  async exists(filters: unknown): Promise<boolean> {
+    return Boolean(await this.findOne(filters));
   }
 
-  async delete(id: string): Promise<void> {
-    await this.deleteOne({ _id: new Types.ObjectId(id) });
+  async delete(id: string): Promise<DeleteResult> {
+    return await this.deleteOne({ _id: new Types.ObjectId(id) });
   }
 }

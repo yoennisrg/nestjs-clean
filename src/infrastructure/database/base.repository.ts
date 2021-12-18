@@ -1,6 +1,6 @@
 import { Document, FilterQuery, Model, UpdateQuery } from 'mongoose';
 
-interface DeleteResult {
+export interface DeleteResult {
   acknowledged: boolean;
   deletedCount: number;
 }

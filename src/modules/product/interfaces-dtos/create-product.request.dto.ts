@@ -1,20 +1,27 @@
-import { IsNumber, IsBoolean, IsString, ValidateNested } from 'class-validator';
+import {
+  IsNumber,
+  IsBoolean,
+  IsString,
+  ValidateNested,
+  IsObject,
+  IsOptional,
+} from 'class-validator';
 import { Type } from 'class-transformer';
 import { ApiProperty } from '@nestjs/swagger';
-import { CreateProduct, AttributesProduct } from './create-product.interface';
+import { CreateProduct, Attributes } from './create-product.interface';
 
-class Attributes implements AttributesProduct {
+class AttributesProduct implements Attributes {
   @IsString()
-  readonly size?: string;
-
-  @IsString()
-  readonly type?: string;
+  readonly size: string;
 
   @IsString()
-  readonly color?: string;
+  readonly type: string;
 
   @IsString()
-  readonly gender?: string;
+  readonly color: string;
+
+  @IsString()
+  readonly gender: string;
 }
 
 export class CreateProductRequest implements CreateProduct {
@@ -38,9 +45,10 @@ export class CreateProductRequest implements CreateProduct {
       'The attributes define the characteristics of the product, object example: type, size, color, etc ...',
     description: 'Product attributes',
   })
+  @IsObject()
   @ValidateNested()
-  @Type(() => Attributes)
-  readonly attributes: Attributes;
+  @Type(() => AttributesProduct)
+  readonly attributes!: AttributesProduct;
 
   @ApiProperty({
     example: '99.9',
@@ -54,5 +62,6 @@ export class CreateProductRequest implements CreateProduct {
     description: 'Assign if the product is in stock, this property is optional',
   })
   @IsBoolean()
+  @IsOptional()
   readonly stock?: boolean;
 }

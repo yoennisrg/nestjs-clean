@@ -1,8 +1,6 @@
 export interface BaseRepositoryPort {
   /** Queries */
   save(entity: unknown): Promise<unknown>;
-  deleteMany(): void;
-  deleteOne(options: any): void;
   find(): void;
   findById(): void;
   findByIdAndDelete(): void;
@@ -16,4 +14,6 @@ export interface BaseRepositoryPort {
   replaceOne(): void;
   updateMany(): void;
   updateOne(): void;
+  deleteMany(): void;
+  deleteOne(options: unknown): Promise<unknown>;
 }

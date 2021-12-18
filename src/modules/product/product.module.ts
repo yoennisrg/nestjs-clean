@@ -2,11 +2,11 @@ import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ProductRepoProvider } from './database/product.provider';
 
-import { CreateProductController } from './commands/create-product/create-product.controller';
-import { DeleteProductController } from './commands/delete-product/delete-product.controller';
+import { CreateProductController } from './commands/create/create-product.controller';
+import { DeleteProductController } from './commands/delete/delete-product.controller';
 
-import { CreateProductService } from './commands/create-product/create-product.service';
-import { DeleteProductService } from './commands/delete-product/delete-product.service';
+import { CreateProductService } from './commands/create/create-product.service';
+import { DeleteProductService } from './commands/delete/delete-product.service';
 
 import { Product, ProductSchema } from './database/product.entity';
 

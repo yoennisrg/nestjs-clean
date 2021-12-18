@@ -11,7 +11,7 @@ export class CreateProductService {
   ) {}
 
   async execute(command: CreateProductCommand): Promise<number> {
-    if (await this.productRepo.exists(command.name)) {
+    if (await this.productRepo.exists({ name: command.name })) {
       throw new ConflictException(`${command.name} already exists`);
     }
     return await this.productRepo.create(command);

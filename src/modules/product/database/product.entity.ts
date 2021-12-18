@@ -4,6 +4,17 @@ import { Document } from 'mongoose';
 
 export type ProductDocument = Product & Document;
 
+class Attributes {
+  @Prop()
+  size: string;
+  @Prop()
+  type: string;
+  @Prop()
+  color: string;
+  @Prop()
+  gender: string;
+}
+
 @Schema()
 export class Product extends EntityBase {
   @Prop()
@@ -14,6 +25,12 @@ export class Product extends EntityBase {
 
   @Prop()
   price: number;
+
+  @Prop()
+  attributes: Attributes;
+
+  @Prop({ default: false })
+  stock: boolean;
 }
 
 export const ProductSchema = SchemaFactory.createForClass(Product);
