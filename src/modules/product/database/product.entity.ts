@@ -1,5 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { EntityBase } from '../../../infrastructure/database/base.entity';
+import { EntityBase } from '../../../infrastructure/database/base.model';
 import { Document } from 'mongoose';
 
 export type ProductDocument = Product & Document;

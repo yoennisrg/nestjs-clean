@@ -1,8 +1,8 @@
 import { Body, Controller, HttpStatus, Post } from '@nestjs/common';
 
 import { ApiOperation, ApiResponse } from '@nestjs/swagger';
-import { CreateProductRequest } from '../../interfaces-dtos/create-product.request.dto';
-import { IdResponse } from '../../interfaces-dtos/product.response.dto';
+import { CreateProductRequest } from '../../interface-dtos/create-product.request.dto';
+import { IdResponse } from '../../interface-dtos/product.response.dto';
 import { CreateProductCommand } from './create-product.command';
 import { CreateProductService } from './create-product.service';
 

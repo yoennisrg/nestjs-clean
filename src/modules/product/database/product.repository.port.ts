@@ -1,5 +1,5 @@
 import { Product } from './product.entity';
-import { BaseRepositoryPort } from '../../../domain/ports/repository.port';
+import { BaseRepositoryPort } from '../../../infrastructure/ports/repository.port';
 
 export interface ProductRepositoryPort extends BaseRepositoryPort {
   findOneByNameOrThrow(name: string): Promise<Product>;
