@@ -3,9 +3,8 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { ProductRepoProvider } from './database/product.provider';
 
 import { CreateProductController } from './commands/create/create-product.controller';
-import { DeleteProductController } from './commands/delete/delete-product.controller';
-
 import { CreateProductService } from './commands/create/create-product.service';
+import { DeleteProductController } from './commands/delete/delete-product.controller';
 import { DeleteProductService } from './commands/delete/delete-product.service';
 
 import { Product, ProductSchema } from './database/product.entity';

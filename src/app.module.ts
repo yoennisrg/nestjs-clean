@@ -1,17 +1,21 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { ProductModule } from './modules/product/product.module';
 import { DatabaseModule } from './infrastructure/configs/ormconfig';
-import { MongooseModule } from '@nestjs/mongoose';
+import { ScheduleModule } from '@nestjs/schedule';
+import { TaskSchedulingModule } from './shared-modules/tasks/tasks.module';
+import { ProductModule } from './modules/product/product.module';
+import { NewsModule } from './modules/news/news.module';
 
 @Module({
   imports: [
+    TaskSchedulingModule,
     ProductModule,
+    NewsModule,
     ConfigModule.forRoot({
       isGlobal: true,
     }),
-    // MongooseModule.forRoot('mongodb://localhost:27017/demo'),
     DatabaseModule.forRoot(),
+    ScheduleModule.forRoot(),
   ],
   controllers: [],
   providers: [],
