@@ -33,6 +33,19 @@ export class TasksService {
 
   @Interval(10000)
   handleInterval() {
-    this.logger.debug('Called every 10 seconds');
+    // this.httpService
+    //   .get('https://hn.algolia.com/api/v1/search_by_date?query=nodejs')
+    //   .subscribe(({ data }) => {
+    //     this.logger.debug('test external api query method every 10 seconds');
+    //     if (data.hits.length > 0) {
+    //       this.eventEmitter.emit(
+    //         'createNews.fetch',
+    //         new CreateDomianEvent({
+    //           objectID: data.nbHits,
+    //           payload: data.hits,
+    //         }),
+    //       );
+    //     }
+    //   });
   }
 }

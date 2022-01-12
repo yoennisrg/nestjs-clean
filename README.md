@@ -32,6 +32,12 @@
 $ npm install
 ```
 
+## Settings:
+Rename configuration in the environment file .env for connection to the mongodb database
+DB_CONNECTION_PATH= 'mongodb://localhost:27017/demo'
+
+To test the operation of the data query in external api, uncomment the code of the handleInterval function in the file: src\shared\tasks\tasks.service.ts, that will be in charge of executing the method every 10 seconds.
+
 ## Running the app
 
 ```bash
