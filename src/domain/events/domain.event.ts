@@ -1,4 +1,4 @@
-export class NewsCreatedEvent {
+export class CreateDomianEvent {
   constructor(props: any) {
     this.objectID = props.objectID;
     this.payload = props.payload;

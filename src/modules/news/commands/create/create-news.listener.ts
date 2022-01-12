@@ -2,15 +2,15 @@ import { CreateNewsService } from './create-news.service';
 import { CreateNewsCommand } from './create-news.command';
 import { Injectable } from '@nestjs/common';
 import { OnEvent } from '@nestjs/event-emitter';
-import { NewsCreatedEvent } from '../../events/created-news.event';
+import { CreateDomianEvent } from '../../../../domain/events/domain.event';
 
 @Injectable()
-export class NewsCreatedListener {
+export class CreateNewsListener {
   constructor(private readonly service: CreateNewsService) {}
 
   @OnEvent('createNews.fetch')
-  create(event: NewsCreatedEvent): void {
-    event.payload.length > 0 &&
+  fetchCreate(event: CreateDomianEvent): void {
+    if (Array.isArray(event.payload) && event.payload.length > 0) {
       [...event.payload].forEach(async (hits: any) => {
         await this.service.execute(
           new CreateNewsCommand({
@@ -32,5 +32,11 @@ export class NewsCreatedListener {
           }),
         );
       });
+    }
+  }
+
+  @OnEvent('createNews.external')
+  create(event: CreateDomianEvent): void {
+    console.log(event);
   }
 }
