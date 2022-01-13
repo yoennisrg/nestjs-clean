@@ -9,6 +9,6 @@ export class FindNewsService {
   ) {}
 
   async execute(query: FindNewsQuery): Promise<unknown> {
-    return await this.newsRepo.filter(query);
+    return await this.newsRepo.paginate(query);
   }
 }

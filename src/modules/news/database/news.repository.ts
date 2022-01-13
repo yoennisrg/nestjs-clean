@@ -7,6 +7,8 @@ import {
 } from '../../../infrastructure/database/base.repository';
 import { QueryOptions } from '../../../infrastructure/interface-adapters/dtos/query.options.dto';
 import { News, NewsDocument } from '../database/news.entity';
+import { paginateModel } from '../../../infrastructure/middleware/mongoose-paginate';
+//import paginate, { filterDto, projectionDto } from 'nestjs-keyset-paginator';
 
 @Injectable()
 export class NewsRepository extends BaseRepository<NewsDocument> {
@@ -31,6 +33,34 @@ export class NewsRepository extends BaseRepository<NewsDocument> {
 
     return { items: result, total: result.length };
   }
+
+  async paginate(query: QueryOptions): Promise<unknown> {
+    return await paginateModel(this.newsModel)(query.filters, {
+      ...query.pagination,
+      ...query.sort,
+    });
+  }
+
+  // async findAll(
+  //   skip = 0,
+  //   limit = 10,
+  //   start_key?,
+  //   sort_field?: string,
+  //   sort_order?: number,
+  //   filter?: filterDto[],
+  //   projection?: projectionDto[],
+  // ) {
+  //   return paginate(
+  //     this.newsModel,
+  //     skip,
+  //     limit,
+  //     start_key,
+  //     sort_field,
+  //     sort_order,
+  //     filter,
+  //     projection,
+  //   );
+  // }
 
   async create(news: News): Promise<number> {
     const { _id } = await this.save(news);
