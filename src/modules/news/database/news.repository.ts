@@ -7,7 +7,10 @@ import {
 } from '../../../infrastructure/database/base.repository';
 import { QueryOptions } from '../../../infrastructure/interface-adapters/dtos/query.options.dto';
 import { News, NewsDocument } from '../database/news.entity';
-import { paginateModel } from '../../../infrastructure/middleware/mongoose-paginate';
+import {
+  paginateModel,
+  PaginationDto,
+} from '../../../infrastructure/utils/mongoose-paginate';
 //import paginate, { filterDto, projectionDto } from 'nestjs-keyset-paginator';
 
 @Injectable()
@@ -34,11 +37,8 @@ export class NewsRepository extends BaseRepository<NewsDocument> {
     return { items: result, total: result.length };
   }
 
-  async paginate(query: QueryOptions): Promise<unknown> {
-    return await paginateModel(this.newsModel)(query.filters, {
-      ...query.pagination,
-      ...query.sort,
-    });
+  async paginate(params: PaginationDto): Promise<unknown> {
+    return await paginateModel(this.newsModel)(params.query, params.options);
   }
 
   // async findAll(

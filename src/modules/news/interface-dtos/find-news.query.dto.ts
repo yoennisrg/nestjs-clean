@@ -1,6 +1,5 @@
-import { QueryOptions } from '../../../infrastructure/interface-adapters/dtos/query.options.dto';
-
-export class FindNewsQuery extends QueryOptions {
+import { PaginationDto } from '../../../infrastructure/utils/mongoose-paginate';
+export class FindNewsQuery extends PaginationDto {
   constructor(props: any) {
     super(props);
   }

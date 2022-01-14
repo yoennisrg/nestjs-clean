@@ -1,27 +1,5 @@
+import { QueryPagination, OptionsPagination } from './params-paginate.dto';
 import { Model, Document } from 'mongoose';
-
-/**
- * @param {Object}              [query={}]
- * @param {Object}              [options={}]
- * @param {Object|String}       [options.select='']
- * @param {Object|String}       [options.projection={}]
- * @param {Object}              [options.options={}]
- * @param {Object|String}       [options.sort]
- * @param {Object|String}       [options.customLabels]
- * @param {Object}              [options.collation]
- * @param {Array|Object|String} [options.populate]
- * @param {Boolean}             [options.lean=false]
- * @param {Boolean}             [options.leanWithId=true]
- * @param {Number}              [options.offset=0] - Use offset or page to set skip position
- * @param {Number}              [options.page=1]
- * @param {Number}              [options.limit=10]
- * @param {Boolean}             [options.useEstimatedCount=true] - Enable estimatedDocumentCount for larger datasets. As the name says, the count may not abe accurate.
- * @param {Function}            [options.useCustomCountFn=false] - use custom function for count datasets.
- * @param {Object}              [options.read={}] - Determines the MongoDB nodes from which to read.
- * @param {Function}            [callback]
- *
- * @returns {Promise}
- */
 
 const defaultOptions = {
   customLabels: {
@@ -51,6 +29,29 @@ const defaultOptions = {
   allowDiskUse: false,
 };
 
+/**
+ * @param {Object}              [query={}]
+ * @param {Object}              [options={}]
+ * @param {Object|String}       [options.select='']
+ * @param {Object|String}       [options.projection={}]
+ * @param {Object}              [options.options={}]
+ * @param {Object|String}       [options.sort]
+ * @param {Object|String}       [options.customLabels]
+ * @param {Object}              [options.collation]
+ * @param {Array|Object|String} [options.populate]
+ * @param {Boolean}             [options.lean=false]
+ * @param {Boolean}             [options.leanWithId=true]
+ * @param {Number}              [options.offset=0] - Use offset or page to set skip position
+ * @param {Number}              [options.page=1]
+ * @param {Number}              [options.limit=10]
+ * @param {Boolean}             [options.useEstimatedCount=true] - Enable estimatedDocumentCount for larger datasets. As the name says, the count may not abe accurate.
+ * @param {Function}            [options.useCustomCountFn=false] - use custom function for count datasets.
+ * @param {Object}              [options.read={}] - Determines the MongoDB nodes from which to read.
+ * @param {Function}            [callback]
+ *
+ * @returns {Promise}
+ */
+
 export const paginateModel = (model: Model<Document>) =>
   function (query?, options?, callback?) {
     options = {
@@ -73,7 +74,7 @@ export const paginateModel = (model: Model<Document>) =>
       useEstimatedCount,
       useCustomCountFn,
       forceCountFn,
-      allowDiskUse,
+      //allowDiskUse,
     } = options;
 
     const customLabels = {
@@ -291,3 +292,54 @@ export const paginateModel = (model: Model<Document>) =>
         return isCallbackSpecified ? callback(error) : Promise.reject(error);
       });
   };
+
+export class PaginationDto {
+  constructor({ query, body }: any) {
+    const {
+      select,
+      collation,
+      sort,
+      populate,
+      projection,
+      lean,
+      leanWithId,
+      offset,
+      page,
+      limit,
+      customLabels,
+      useCustomCountFn,
+      forceCountFn,
+      //allowDiskUse,
+      read,
+      options,
+      ...filters
+    } = body;
+
+    this.query = filters;
+
+    this.options = Object.assign(
+      {
+        ...(select && select),
+        ...(collation && collation),
+        ...(sort && sort),
+        ...(populate && populate),
+        ...(projection && projection),
+        ...(lean && lean),
+        ...(leanWithId && leanWithId),
+        ...(customLabels && customLabels),
+        ...(useCustomCountFn && useCustomCountFn),
+        ...(forceCountFn && forceCountFn),
+        //...(allowDiskUse && allowDiskUse),
+        ...(read && read),
+        ...(options && options),
+        ...(offset && offset),
+        ...(page && page),
+        ...(limit && limit),
+      },
+      { ...query },
+    );
+  }
+
+  readonly query: QueryPagination;
+  readonly options: OptionsPagination;
+}
