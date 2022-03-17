@@ -6,12 +6,14 @@ import { EventEmitterModule } from '@nestjs/event-emitter';
 import { TaskCronModule } from './shared/tasks/tasks.module';
 import { ProductModule } from './modules/product/product.module';
 import { NewsModule } from './modules/news/news.module';
+import { TripsModule } from './modules/trips/trips.module';
 
 @Module({
   imports: [
     TaskCronModule,
     ProductModule,
     NewsModule,
+    TripsModule,
     ConfigModule.forRoot({
       isGlobal: true,
     }),
