@@ -48,7 +48,7 @@ class End implements EndDTO {
   readonly lon: number;
 }
 
-class Coordinates implements CoordinatesDTO {
+export class Coordinates implements CoordinatesDTO {
   @ApiProperty({
     description: 'latitude of the reading',
   })

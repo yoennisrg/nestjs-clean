@@ -2,7 +2,7 @@ import { Inject } from '@nestjs/common';
 import { CommandHandler } from '@nestjs/cqrs';
 import { HttpService } from '@nestjs/axios';
 import { CreateTripsCommand } from './create-trips.command';
-import { Trip } from '../../interface-dtos/trips.response.dto';
+import { Trip, Coordinates } from '../../interface-dtos/trips.response.dto';
 import { TripsRepositoryPort } from '../../database/trips.repository.port';
 @CommandHandler(CreateTripsCommand)
 export class CreateTripsService {
@@ -12,9 +12,11 @@ export class CreateTripsService {
     private httpService: HttpService,
   ) {}
 
-  async getAddressLocation({ lat, lon }: any) {
-    const geocode = `https://api.opencagedata.com/geocode/v1/json?q=${lat}+${lon}&key=03c48dae07364cabb7f121d8c1519492&no_annotations=1&language=en`;
-    const data = await (await this.httpService.get(geocode).toPromise()).data;
+  async getAddressLocation({ lat, lon }: Coordinates) {
+    const geoCodeURL = `https://api.opencagedata.com/geocode/v1/json?q=${lat}+${lon}&key=03c48dae07364cabb7f121d8c1519492&no_annotations=1&language=en`;
+    const data = await (
+      await this.httpService.get(geoCodeURL).toPromise()
+    ).data;
     return data.results[0].formatted;
   }
 

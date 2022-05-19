@@ -10,8 +10,8 @@ import { Type } from 'class-transformer';
 import { ApiProperty } from '@nestjs/swagger';
 import { CreateProduct, Attributes } from './create-product.interface';
 
-class AttributesProduct implements Attributes {
-  @IsString()
+class AttributesProducts implements Attributes {
+  @IsString({ message: 'must be a string' })
   readonly size: string;
 
   @IsString()
@@ -22,6 +22,25 @@ class AttributesProduct implements Attributes {
 
   @IsString()
   readonly gender: string;
+}
+
+class AttributesProduct implements Attributes {
+  @IsString({ message: 'must be a string' })
+  readonly size: string;
+
+  @IsString()
+  readonly type: string;
+
+  @IsString()
+  readonly color: string;
+
+  @IsString()
+  readonly gender: string;
+
+  @IsObject()
+  @ValidateNested()
+  @Type(() => AttributesProducts)
+  readonly attribute!: AttributesProducts;
 }
 
 export class CreateProductRequest implements CreateProduct {
