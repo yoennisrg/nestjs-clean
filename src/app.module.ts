@@ -7,13 +7,15 @@ import { TaskCronModule } from './shared/tasks/tasks.module';
 import { ProductModule } from './modules/product/product.module';
 import { NewsModule } from './modules/news/news.module';
 import { TripsModule } from './modules/trips/trips.module';
+import { FileModule } from './modules/files/file.module';
 
 @Module({
   imports: [
-    TaskCronModule,
-    ProductModule,
-    NewsModule,
-    TripsModule,
+    // TaskCronModule,
+    // ProductModule,
+    // NewsModule,
+    // TripsModule,
+    FileModule,
     ConfigModule.forRoot({
       isGlobal: true,
     }),

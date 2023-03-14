@@ -1,7 +1,7 @@
 import { News } from './news.entity';
 import { BaseRepositoryPort } from '../../../infrastructure/ports/repository.port';
 
-export interface NewsRepositoryPort extends BaseRepositoryPort {
+export interface NewsRepositoryPort {
   create(command: unknown): Promise<number>;
   exists(fitler: unknown): Promise<boolean>;
   filter(query: unknown): Promise<News[]>;
